@@ -95,3 +95,32 @@ class Roof:
             self.place_panel(pos, panel)
             return True
         return False
+
+
+    def plot(self):
+        """
+        Muestra en consola la solución encontrada
+        """
+        print("number of panels: ", len(self.panels))
+        print(self.grid)
+
+
+    def set_triangle_boundaries(self, height, base):
+        """
+        Establece una región triangular en la rejilla del techo, 
+        marcando las posiciones que quedan fuera de los límites con -1.
+
+        Args:
+            height (int): Altura del triángulo.
+            base (int): Base del triángulo.
+        """
+        tg_angle = 2 * height / base
+        for x in range(height):
+            for y in range(base // 2):
+                if (x + 1) / (y + 1) > tg_angle:
+                    self.grid[x, y] = -1
+
+            for y in range(base // 2 - 1, base):
+                if (x + 1) / (base - y) > tg_angle:
+                    self.grid[x, y] = -1
+        return
